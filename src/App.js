@@ -1,25 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter } from 'react-router-dom';
+
+import logo from './bunchee-online-logo2.svg';
 import './App.css';
+
+import { Container, Navbar, Row } from 'react-bootstrap';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Container>
+          <Row>
+            <Navbar variant="dark">
+              <Navbar.Brand href="#home">
+                <img
+                  alt=""
+                  src={logo}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '}
+                Bunchee.Online
+              </Navbar.Brand>
+            </Navbar>
+          </Row>
+        </Container>
+      </div>
+    </BrowserRouter>
   );
 }
 
