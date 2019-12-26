@@ -1,33 +1,20 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import logo from './bunchee-online-logo2.svg';
 import './App.css';
 
-import { Container, Navbar, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import MyNavbar from './components/layout/MyNavbar';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <div className="App">
         <Container>
-          <Row>
-            <Navbar variant="dark">
-              <Navbar.Brand href="#home">
-                <img
-                  alt=""
-                  src={logo}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />{' '}
-                Bunchee.Online
-              </Navbar.Brand>
-            </Navbar>
-          </Row>
+          <MyNavbar />
         </Container>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
