@@ -20,7 +20,7 @@ function MyNavbar(props) {
             height="30"
             className="d-inline-block align-top"
           />{' '}
-          Bunchee.Online
+          บัญชี.ออนไลน์
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />

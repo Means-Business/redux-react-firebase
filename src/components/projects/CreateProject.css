@@ -1,0 +1,10 @@
+@media all and (min-width: 360px) {
+  .Create_project {
+    padding: 80px 0;
+  }
+
+  .Create_project form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}

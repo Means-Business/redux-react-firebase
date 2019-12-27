@@ -5,6 +5,7 @@ import './App.css';
 
 import { Container } from 'react-bootstrap';
 import MyNavbar from './components/layout/MyNavbar';
+import Routes from './Routes';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <MyNavbar />
         </Container>
       </div>
+      <Routes />
     </Router>
   );
 }

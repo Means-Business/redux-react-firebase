@@ -9,14 +9,14 @@ export default function SignedInLinks(props) {
     <>
       <Nav as="ul" className="mx-auto">
         <Nav.Item as="li" className="mx-2">
-          <NavLink to="/">New Project</NavLink>
+          <NavLink to="/createproject">โครงการใหม่</NavLink>
         </Nav.Item>
         <Nav.Item as="li" className="mx-2">
-          <NavLink to="/">Logout</NavLink>
+          <NavLink to="/">ลงชื่อออก</NavLink>
         </Nav.Item>
       </Nav>
       <Navbar.Text>
-        Signed in as: <a href="#login">Manot Luijiu</a>
+        สวัสดี: <a href="#login">มโนชญ์ หลุ่ยจิ๋ว</a>
       </Navbar.Text>
     </>
   );

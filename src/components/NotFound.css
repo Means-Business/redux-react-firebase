@@ -1,0 +1,25 @@
+.NotFound {
+  height: 80vh;
+  position: relative;
+  text-align: center;
+}
+
+.NotFound section {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.NotFound section h3 {
+  color: #0984e3;
+  font-size: 160px;
+  font-weight: 600;
+}
+
+.NotFound section p {
+  color: #0984e3;
+  font-size: 60px;
+  font-weight: 600;
+}

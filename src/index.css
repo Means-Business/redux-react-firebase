@@ -4,6 +4,10 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   color: #333;
+  background: url(./bunchee-online-logo.svg);
+  background-repeat: no-repeat;
+  background-position: center top 80px;
+  background-size: 3em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

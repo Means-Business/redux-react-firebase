@@ -8,10 +8,10 @@ export default function SignedOutLinks(props) {
   return (
     <Nav as="ul" className="mx-auto">
       <Nav.Item as="li" className="mx-2">
-        <NavLink to="/">Signup</NavLink>
+        <NavLink to="/signup">ลงทะเบียน</NavLink>
       </Nav.Item>
       <Nav.Item as="li" className="mx-2">
-        <NavLink to="/">Login</NavLink>
+        <NavLink to="/signin">ลงชื่อเข้าใช้</NavLink>
       </Nav.Item>
     </Nav>
   );
