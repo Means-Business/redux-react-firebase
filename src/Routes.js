@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Dashboard from './components/dashboard/Dashboard';
+import Dashboard from './containers/dashboard/Dashboard';
 import NotFound from './components/NotFound';
 import ProjectDetails from './components/projects/ProjectDetails';
-import SignIn from './components/auth/SignIn';
-import SignUp from './components/auth/SignUp';
-import CreateProject from './components/projects/CreateProject';
+import SignIn from './containers/auth/SignIn';
+import SignUp from './containers/auth/SignUp';
+import CreateProject from './containers/projects/CreateProject';
 
 export default function Routes() {
   return (

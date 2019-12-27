@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 
 import './CreateProject.css';
 
-export default class CreateProject extends Component {
+import { createProject } from '../../actions/projectActions';
+
+class CreateProject extends Component {
   constructor(props) {
     super(props);
 
@@ -31,10 +33,11 @@ export default class CreateProject extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    console.log(this.state);
+    this.props.createProject(this.state);
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="Signin">
         <h5 className="text-center text-dark mb-5">สร้างโครงการ</h5>
@@ -76,3 +79,9 @@ export default class CreateProject extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  createProject: project => dispatch(createProject(project))
+});
+
+export default connect(null, mapDispatchToProps)(CreateProject);
