@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import { Navbar } from 'react-bootstrap';
 import Logo from '../../bunchee-online-logo2.svg';
 
@@ -9,6 +9,7 @@ import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 
 function MyNavbar(props) {
+  console.log(props);
   return (
     <Navbar collapseOnSelect expand="lg" variant="dark">
       <Navbar.Brand>
@@ -28,11 +29,14 @@ function MyNavbar(props) {
         id="responsive-navbar-nav"
         className="justify-content-end"
       >
-        <SignedInLinks />
-        <SignedOutLinks />
+        {props.auth.isAuthenticated ? <SignedInLinks /> : <SignedOutLinks />}
       </Navbar.Collapse>
     </Navbar>
   );
 }
 
-export default MyNavbar;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(MyNavbar);

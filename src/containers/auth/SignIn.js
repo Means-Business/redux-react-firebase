@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+
+import { userActions } from '../../actions/userActions';
 
 import './SignIn.css';
+import LoaderButton from '../../components/utils/LoaderButton';
 
-export default class SignIn extends Component {
+class SignIn extends Component {
   constructor(props) {
     super(props);
 
+    // reset login status
+    this.props.logout();
+
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      submitted: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,12 +38,19 @@ export default class SignIn extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(
-      `ลงชื่อเข้าใช้ อีเมลคือ ${this.state.email} พาสเวิร์ดคือ ${this.state.password}`
-    );
+
+    this.setState({ submitted: true });
+    const { email, password } = this.state;
+
+    if (email && password) {
+      this.props.login(email, password);
+    }
   }
 
   render() {
+    console.log(this.props);
+    const { auth } = this.props;
+    console.log(auth);
     return (
       <div className="Signin">
         <h5 className="text-center text-dark mb-5">ลงชื่อเข้าใช้</h5>
@@ -65,17 +80,29 @@ export default class SignIn extends Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Button
+          <LoaderButton
             block
             size="lg"
-            variant="success"
             type="submit"
+            isLoading={this.isLoading}
             disabled={!this.validateForm()}
           >
             เข้าใช้
-          </Button>
+          </LoaderButton>
         </Form>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  const { loggingIn } = state.authentication;
+  return { loggingIn };
+};
+
+const actionCreators = {
+  login: userActions.login,
+  logout: userActions.logout
+};
+
+export default connect(mapStateToProps, actionCreators)(SignIn);

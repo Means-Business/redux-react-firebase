@@ -7,7 +7,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 export default function SignedInLinks(props) {
   return (
     <>
-      <Nav as="ul" className="mx-auto">
+      <Nav as="ul" className="mr-5">
         <Nav.Item as="li" className="mx-2">
           <NavLink to="/createproject">โครงการใหม่</NavLink>
         </Nav.Item>

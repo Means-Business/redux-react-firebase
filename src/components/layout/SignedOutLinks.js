@@ -6,7 +6,7 @@ import { Nav } from 'react-bootstrap';
 
 export default function SignedOutLinks(props) {
   return (
-    <Nav as="ul" className="mx-auto">
+    <Nav as="ul" className="ml-auto">
       <Nav.Item as="li" className="mx-2">
         <NavLink to="/signup">ลงทะเบียน</NavLink>
       </Nav.Item>

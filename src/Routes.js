@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Dashboard from './containers/dashboard/Dashboard';
-import NotFound from './components/NotFound';
+import NotFound from './pages/NotFound';
 import ProjectDetails from './components/projects/ProjectDetails';
 import SignIn from './containers/auth/SignIn';
 import SignUp from './containers/auth/SignUp';
