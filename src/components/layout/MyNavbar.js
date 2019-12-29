@@ -21,7 +21,7 @@ function MyNavbar(props) {
             height="30"
             className="d-inline-block align-top"
           />{' '}
-          บัญชี.ออนไลน์
+          หมู ชอบเขียนโค๊ด
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -29,7 +29,7 @@ function MyNavbar(props) {
         id="responsive-navbar-nav"
         className="justify-content-end"
       >
-        {props.auth.isAuthenticated ? <SignedInLinks /> : <SignedOutLinks />}
+        {props.auth.loggedIn ? <SignedInLinks /> : <SignedOutLinks />}
       </Navbar.Collapse>
     </Navbar>
   );

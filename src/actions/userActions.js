@@ -19,6 +19,7 @@ function login(username, password) {
       user => {
         dispatch(success(user));
         history.push('/');
+        window.location.reload();
       },
       error => {
         dispatch(failure(error));
@@ -61,7 +62,12 @@ function register(user) {
       user => {
         dispatch(success());
         history.push('/login');
-        dispatch(alertActions.success('Registration successful'));
+        dispatch(
+          alertActions.success('ลงทะเบียนสำเร็จ ปิดข้อความนี้เพื่อไปหน้า:)')
+        );
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
       },
       error => {
         dispatch(failure(error));

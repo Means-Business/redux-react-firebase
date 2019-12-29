@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import ProjectSummary from './ProjectSummary';
 
-export default function ProjectList({ projects }) {
+const ProjectList = ({ projects }) => {
+  console.log(projects);
   return (
     <div>
       {projects &&
@@ -10,4 +13,6 @@ export default function ProjectList({ projects }) {
         })}
     </div>
   );
-}
+};
+
+export default connect()(ProjectList);

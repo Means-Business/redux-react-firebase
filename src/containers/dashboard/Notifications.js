@@ -3,7 +3,7 @@ import React from 'react';
 export default function Notifications() {
   return (
     <div>
-      <p>Notifications</p>
+      <p>แจ้งข่าวสาร</p>
     </div>
   );
 }

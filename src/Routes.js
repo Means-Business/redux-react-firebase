@@ -1,5 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+
+import { PrivateRoute } from './components/utils/PrivateRoute';
 import Dashboard from './containers/dashboard/Dashboard';
 import NotFound from './pages/NotFound';
 import ProjectDetails from './components/projects/ProjectDetails';
@@ -11,11 +13,11 @@ export default function Routes() {
   return (
     <div>
       <Switch>
-        <Route path="/" exact component={Dashboard} />
-        <Route path="/signin" exact component={SignIn} />
-        <Route path="/signup" exact component={SignUp} />
-        <Route path="/createproject" exact component={CreateProject} />
-        <Route path="/project/:id" exact component={ProjectDetails} />
+        <PrivateRoute path="/" exact component={Dashboard} />
+        <Route path="/login" component={SignIn} />
+        <Route path="/register" component={SignUp} />
+        <PrivateRoute path="/createproject" component={CreateProject} />
+        <PrivateRoute path="/project/:id" component={ProjectDetails} />
         {/* routes ใดๆที่หาไม่เจอ ใช้ NotFound route */}
         <Route component={NotFound} />
       </Switch>

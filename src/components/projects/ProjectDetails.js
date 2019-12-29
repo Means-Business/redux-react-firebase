@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
-export default function ProjectDetails(props) {
+const ProjectDetails = props => {
+  console.log(props);
   const id = props.match.params.id;
+  const { user } = props.auth;
+  const { firstName, lastName } = user;
   return (
     <Container className="mt-5">
       <Row>
@@ -20,7 +24,9 @@ export default function ProjectDetails(props) {
               </Card.Text>
             </Card.Body>
             <Card.Footer>
-              <small className="text-muted">โพสต์โดย มโนชญ์ หลุ่ยจิ๋ว</small>
+              <small className="text-muted">
+                โพสต์โดย {firstName} {lastName}
+              </small>
               <br />
               <small className="text-muted">เมื่อ 3 นาทีที่แล้ว</small>
             </Card.Footer>
@@ -29,4 +35,10 @@ export default function ProjectDetails(props) {
       </Row>
     </Container>
   );
-}
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect()(ProjectDetails);

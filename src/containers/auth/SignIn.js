@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Form } from 'react-bootstrap';
+import { Form, Jumbotron, Button, Alert } from 'react-bootstrap';
 
 import { userActions } from '../../actions/userActions';
 
@@ -12,13 +13,12 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
 
-    // reset login status
+    // พอมาหน้าล็อกอิน user จะถูกล้างทิ้ง
     this.props.logout();
 
     this.state = {
-      email: '',
-      password: '',
-      submitted: false
+      username: '',
+      password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,8 +26,8 @@ class SignIn extends Component {
   }
 
   validateForm() {
-    const { email, password } = this.state;
-    return email.length > 0 && password.length > 0;
+    const { username, password } = this.state;
+    return username.length > 0 && password.length > 0;
   }
 
   handleChange(event) {
@@ -40,63 +40,65 @@ class SignIn extends Component {
     event.preventDefault();
 
     this.setState({ submitted: true });
-    const { email, password } = this.state;
+    const { username, password } = this.state;
 
-    if (email && password) {
-      this.props.login(email, password);
+    if (username && password) {
+      this.props.login(username, password);
     }
   }
 
   render() {
-    console.log(this.props);
-    const { auth } = this.props;
-    console.log(auth);
+    console.log(this.props.history);
+    const { loggingIn } = this.props;
+    const { username, password } = this.state;
     return (
-      <div className="Signin">
-        <h5 className="text-center text-dark mb-5">ลงชื่อเข้าใช้</h5>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="email">
-            <Form.Label>อีเมล</Form.Label>
-            <Form.Control
-              name="email"
-              autoFocus
-              size="lg"
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-            <Form.Text className="text-muted">
-              เราจะเก็บอีเมลคุณเป็นความลับ
-            </Form.Text>
-          </Form.Group>
+      <Jumbotron fluid className="px-5">
+        <div className="Signin">
+          <h5 className="text-center text-dark mb-5">ลงชื่อเข้าใช้</h5>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group controlId="username">
+              <Form.Label>ชื่อผู้ใช้</Form.Label>
+              <Form.Control
+                name="username"
+                autoFocus
+                size="lg"
+                type="text"
+                value={username}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
 
-          <Form.Group controlId="password">
-            <Form.Label>พาสเวิร์ด</Form.Label>
-            <Form.Control
-              name="password"
+            <Form.Group controlId="password">
+              <Form.Label>พาสเวิร์ด</Form.Label>
+              <Form.Control
+                name="password"
+                size="lg"
+                type="password"
+                value={password}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <LoaderButton
+              block
               size="lg"
-              type="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <LoaderButton
-            block
-            size="lg"
-            type="submit"
-            isLoading={this.isLoading}
-            disabled={!this.validateForm()}
-          >
-            เข้าใช้
-          </LoaderButton>
-        </Form>
-      </div>
+              type="submit"
+              isLoading={loggingIn}
+              disabled={!this.validateForm()}
+            >
+              เข้าใช้
+            </LoaderButton>
+            <Link to="/register" className="btn btn-link">
+              <Button variant="link">ลงทะเบียน</Button>
+            </Link>
+          </Form>
+        </div>
+      </Jumbotron>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const { loggingIn } = state.authentication;
+  const { loggingIn } = state.auth;
   return { loggingIn };
 };
 

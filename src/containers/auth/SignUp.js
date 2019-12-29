@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { Form, Button } from 'react-bootstrap';
+import { userActions } from '../../actions/userActions';
+
+import { Form, Jumbotron, Button } from 'react-bootstrap';
+import LoaderButton from '../../components/utils/LoaderButton';
 
 import './SignUp.css';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
+      user: {
+        firstName: '',
+        lastName: '',
+        username: '',
+        password: ''
+      },
+      submitted: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,110 +28,116 @@ export default class SignUp extends Component {
   }
 
   validateForm() {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword
-    } = this.state;
+    const { firstName, lastName, username, password } = this.state.user;
     return (
       firstName.length > 0 &&
       lastName.length > 0 &&
-      email.length > 0 &&
-      password.length > 0 &&
-      password === confirmPassword
+      username.length > 0 &&
+      password.length > 0
     );
   }
 
   handleChange(event) {
+    const { name, value } = event.target;
+    const { user } = this.state;
     this.setState({
-      [event.target.name]: event.target.value
+      user: {
+        ...user,
+        [name]: value
+      }
     });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(
-      `ลงชื่อเข้าใช้ ${this.state.firstName} ${this.state.lastName} อีเมลคือ ${this.state.email} พาสเวิร์ดคือ ${this.state.password} ยืนยันพาสเวิร์ดคือ ${this.state.confirmPassword}`
-    );
+
+    this.setState({ submitted: true });
+    const { user } = this.state;
+    if (user.firstName && user.lastName && user.username && user.password) {
+      this.props.register(user);
+    }
   }
 
   render() {
+    console.log(this.props);
+    const { registering } = this.props;
+    const { user } = this.state;
     return (
-      <div className="Signup">
-        <h5 className="text-center text-dark mb-5">ลงทะเบียน</h5>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="firstName">
-            <Form.Label>ชื่อ</Form.Label>
-            <Form.Control
-              name="firstName"
-              autoFocus
-              size="lg"
-              type="text"
-              value={this.state.firstName}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
+      <Jumbotron>
+        <div className="Signup">
+          <h5 className="text-center text-dark mb-5">ลงทะเบียน</h5>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group controlId="firstName">
+              <Form.Label>ชื่อ</Form.Label>
+              <Form.Control
+                name="firstName"
+                autoFocus
+                size="lg"
+                type="text"
+                value={user.firstName}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
 
-          <Form.Group controlId="lastName">
-            <Form.Label>นามสกุล</Form.Label>
-            <Form.Control
-              name="lastName"
-              autoFocus
-              size="lg"
-              type="text"
-              value={this.state.lastName}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
+            <Form.Group controlId="lastName">
+              <Form.Label>นามสกุล</Form.Label>
+              <Form.Control
+                name="lastName"
+                size="lg"
+                type="text"
+                value={user.lastName}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
 
-          <Form.Group controlId="email">
-            <Form.Label>อีเมล</Form.Label>
-            <Form.Control
-              name="email"
-              size="lg"
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-            <Form.Text className="text-muted">
-              เราจะเก็บอีเมลคุณเป็นความลับ
-            </Form.Text>
-          </Form.Group>
+            <Form.Group controlId="username">
+              <Form.Label>ชื่อผู้ใช้</Form.Label>
+              <Form.Control
+                name="username"
+                size="lg"
+                type="text"
+                value={user.username}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
 
-          <Form.Group controlId="password">
-            <Form.Label>พาสเวิร์ด</Form.Label>
-            <Form.Control
-              name="password"
-              size="lg"
-              type="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
+            <Form.Group controlId="password">
+              <Form.Label>พาสเวิร์ด</Form.Label>
+              <Form.Control
+                name="password"
+                size="lg"
+                type="password"
+                value={user.password}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
 
-          <Form.Group controlId="confirmPassword">
-            <Form.Label>ยืนยันพาสเวิร์ด</Form.Label>
-            <Form.Control
-              name="confirmPassword"
+            <LoaderButton
+              block
               size="lg"
-              type="password"
-              value={this.state.confirmPassword}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Button
-            block
-            size="lg"
-            variant="success"
-            type="submit"
-            disabled={!this.validateForm()}
-          >
-            ลงทะเบียน
-          </Button>
-        </Form>
-      </div>
+              type="submit"
+              isLoading={registering}
+              disabled={!this.validateForm()}
+            >
+              ลงทะเบียน
+            </LoaderButton>
+            <Link to="/login" className="btn btn-link">
+              <Button variant="link">ลงชื่อเข้าใช้</Button>
+            </Link>
+          </Form>
+        </div>
+      </Jumbotron>
     );
   }
 }
+
+const mapStateToProps = state => {
+  const { registering } = state.registration;
+  return { registering };
+};
+
+const actionCreators = {
+  register: userActions.register
+};
+
+export default connect(mapStateToProps, actionCreators)(SignUp);
